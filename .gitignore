@@ -1,0 +1,26 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.db
+*.db-*
+node_modules/
+dist/
+backups/
+*.log
+.uv-cache/
+.tmp/
+
+question-garden-deploy.tar.gz
+deploy/.jenkins-local/
+.ci-venv/
+ci-results/
+.env.*
+!.env.example
+*.pem
+*.key
+# Local coursework, recordings, generated documents and downloaded tools.
+demo/
+report/
+experiment_username_edits/
+Experiment_*.docx

@@ -1,15 +1,30 @@
-# Verification record
+# Verification record — 26 October 2026
 
-Checked locally on 16 October 2026.
+## Executed Jenkins CI
 
-- Backend: **17 tests passed** with Python 3.14.2 and SQLite. Includes seven-from-ten exhaustion, all four formats, source-evidence coverage, fact reuse prevention, mixed-format graph traversal, generation/purchase idempotency, conflicting retry IDs, daily reset, purchased-credit carryover, free-first spending, insufficient credits, simultaneous spending, account isolation, logout, DOCX/PDF extraction, original downloads, both PDF export modes, malformed uploads, empty generation, deletion including cached results, mocked Google-token verification, and Ollama failure fallback.
-- Frontend: **production build passed** with Vite 7.3.7. Installation audit reported zero vulnerabilities at installation time; this is not a permanent security guarantee.
-- Browser: local demo sign-in, sample text generation, all four formats in a mixed set, saved graph, source-linked answers, a simulated purchase adding 1,000 credits, saved sessions, and the questions-and-answers PDF download worked.
-- Responsive check: at a 390 px viewport, the page had no horizontal overflow and session navigation remained available.
-- Deployment YAML parsed successfully. Python 3.12 cross-platform dependency resolution completed and was saved in `backend/requirements.lock`.
+- Repository: https://github.com/krishhg25/Question-Garden
+- Build: **#3 — SUCCESS**, checked-out commit `c16aa78f768a5e99044d7fc6558b0a3591e8f60c`.
+- Duration: 340.664 seconds.
+- Backend: **17 passed**, 0 failed, 0 skipped, using isolated SQLite.
+- Frontend: npm clean install and Vite production build passed.
+- Actual OCR: Tesseract processed a generated image-only PDF; native PDF and DOCX extraction also passed.
+- NLP/graph: seven source facts produced eleven nodes and seven edges.
+- API: FastAPI health check returned HTTP 200.
+- Docker: both `question-garden-backend:ci-3` and `question-garden-frontend:ci-3` built successfully on the Docker Desktop Linux engine.
+- Evidence: Jenkins published JUnit test results and archived runtime details, OCR input/output, frontend build output and Jenkinsfile.
 
-Not verified locally: live Google OAuth (no client ID supplied), real Tesseract execution (not installed on this Windows host), Ollama inference (no model server supplied), PostgreSQL runtime, Docker/Linux container startup, public TLS, or a cloud deployment. Docker is not installed on this host. The OCR test checks routing with a mocked OCR result; it does not claim to test recognition accuracy. The CI template includes both SQLite and a disposable PostgreSQL run. Follow the Ubuntu guide's acceptance checks on the VM.
+Build #1 passed with Docker explicitly disabled. Build #2 was stopped after Debian HTTP package download failures; the Dockerfile was fixed to use HTTPS with retries and strict package-index checking. Build #3 used that fix.
 
-One dependency deprecation warning is emitted by the installed Starlette TestClient integration with httpx. It does not cause the tests to fail.
+The pipeline is CI only: it does not push images to a registry, deploy to GCP, run Ansible, or provision infrastructure. One Starlette/httpx deprecation warning remains. The unit-test OCR-routing case uses a mock; the separate CI OCR stage runs the real binary.
 
-The running local preview uses the shared development-only demo user and contains sample biology sessions plus a simulated purchase made during testing. Google-authenticated production accounts are separate and start with the daily allowance.
+## Historical deployment and remaining boundaries
+
+The 16 October 2026 Ubuntu/GCP deployment is documented in `deploy/LIVE_VM.md`. The owner reports that the cloud trial expired; current cloud availability is not asserted. Ansible, Terraform, Prometheus, Grafana and related tools remain proposed integrations. GitHub Actions is only an unactivated template. Backup scheduling/restoration and public TLS are not verified by Jenkins.
+
+The current app uses email/password authentication with salted scrypt hashes; Google OAuth is no longer used. Optional Ollama inference is not demonstrated. Screenshots and original build records are kept in the local report evidence folder; the report labels missing screenshots rather than inventing them.
+
+## Local Compose runtime verified
+
+After build #3, the images ran in a separate `question-garden-evidence` Compose project. PostgreSQL, backend and frontend health checks passed; Caddy served the website and API on `127.0.0.1:8085`. The synthetic end-to-end test passed email signup/signin, PostgreSQL persistence, seven-from-ten generation, exact billing, both PDF export modes, real scanned-PDF OCR, document pricing, idempotent demo purchase, deletion and logout.
+
+The demonstration uses a separate PostgreSQL volume and localhost-only port binding. It is not a public or GCP deployment. Version, health and smoke-test logs are preserved in the local report's `evidence/compose/` directory.

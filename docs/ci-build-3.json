@@ -1,0 +1,54 @@
+{
+  "repository": "https://github.com/krishhg25/Question-Garden",
+  "build": 3,
+  "result": "SUCCESS",
+  "commit": "c16aa78f768a5e99044d7fc6558b0a3591e8f60c",
+  "duration_ms": 340664,
+  "tests": {
+    "passCount": 17,
+    "failCount": 0,
+    "skipCount": 0
+  },
+  "stages": [
+    {
+      "name": "Checkout",
+      "status": "SUCCESS",
+      "duration_ms": 2007
+    },
+    {
+      "name": "Install dependencies",
+      "status": "SUCCESS",
+      "duration_ms": 14230
+    },
+    {
+      "name": "Backend tests",
+      "status": "SUCCESS",
+      "duration_ms": 4515
+    },
+    {
+      "name": "Frontend build",
+      "status": "SUCCESS",
+      "duration_ms": 8782
+    },
+    {
+      "name": "OCR and API evidence",
+      "status": "SUCCESS",
+      "duration_ms": 2983
+    },
+    {
+      "name": "Docker image build",
+      "status": "SUCCESS",
+      "duration_ms": 305647
+    },
+    {
+      "name": "Archive evidence",
+      "status": "SUCCESS",
+      "duration_ms": 160
+    },
+    {
+      "name": "Declarative: Post Actions",
+      "status": "SUCCESS",
+      "duration_ms": 76
+    }
+  ]
+}

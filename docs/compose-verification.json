@@ -1,0 +1,14 @@
+{
+  "captured_at_utc": "2026-10-26T04:40:45.194871+00:00",
+  "build": 3,
+  "jenkins_result": "SUCCESS",
+  "compose_project": "question-garden-evidence",
+  "public_binding": "127.0.0.1:8085 (localhost only)",
+  "frontend_status": 200,
+  "gateway_api_status": 200,
+  "api_health": {
+    "status": "ok"
+  },
+  "smoke_test": "PASS",
+  "cloud_deployed": false
+}
